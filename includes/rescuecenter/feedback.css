@@ -1,0 +1,153 @@
+        body {
+            font-family: Arial, sans-serif;
+            background: #FFF8E7;
+            padding: 30px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #5a3e1b;
+        }
+
+        .feedback-container {
+            max-width: 500px;
+            margin: auto;
+        }
+
+        .feedback-card {
+          background: #ddbc8b;
+            border-radius: 10px;
+            padding: 18px 22px;
+            margin-bottom: 18px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+        }
+
+        .feedback-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .rating {
+            color: #ff9800;
+            font-size: 18px;
+        }
+
+        .message {
+            margin: 10px 0;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .date {
+            font-size: 13px;
+            color: #888;
+            text-align: right;
+        }
+
+        .no-feedback {
+            text-align: center;
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            color: #777;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+        }
+
+
+
+@media screen and (max-width: 768px) {
+
+    body {
+        margin-left: 0;
+        padding: 15px;
+    }
+
+    h2 {
+        font-size: 22px;
+        margin-bottom: 20px;
+    }
+
+    .feedback-container {
+        max-width: 100%;
+        padding: 0 10px;
+    }
+
+    .feedback-card {
+        align-items: center;
+        padding: 14px 16px;
+        margin-bottom: 14px;
+    }
+
+    .feedback-header {
+        font-size: 14px;
+    }
+
+    .rating {
+        font-size: 16px;
+    }
+
+    .message {
+        font-size: 14px;
+        line-height: 1.4;
+    }
+
+    .date {
+        font-size: 12px;
+    }
+
+    .no-feedback {
+        padding: 20px;
+        font-size: 14px;
+    }
+}
+
+
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+
+     body {
+        margin-left: 150px; 
+        
+    }
+
+    h2 {
+        align-items: center;
+        font-size: 24px;
+        margin-bottom: 22px;
+    }
+
+    .feedback-container {
+        max-width: 80%;
+        margin: auto;
+    }
+
+    .feedback-card {
+        padding: 16px 20px;
+        margin-bottom: 16px;
+    }
+
+    .feedback-header {
+        font-size: 15px;
+    }
+
+    .rating {
+        font-size: 17px;
+    }
+
+    .message {
+        font-size: 15px;
+        line-height: 1.5;
+    }
+
+    .date {
+        font-size: 13px;
+    }
+
+    .no-feedback {
+        padding: 25px;
+        font-size: 15px;
+    }
+}

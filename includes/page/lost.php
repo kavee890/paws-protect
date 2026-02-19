@@ -1,3 +1,17 @@
+<?php
+include("dbconnect.php");
+
+$query = "SELECT lost_id, image, animal_type, breed, color, lost_location, owner_name, contact_number 
+          FROM lost_animals 
+          ORDER BY created_at DESC";
+
+$result = mysqli_query($conn, $query);
+?>
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,7 +19,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Paws & Protect </title>
      <link rel="icon" type="image/x-icon" href="/paws&protect/includes/image/paw.png" />
-    <link rel="stylesheet" href="com.css">
+    <link rel="stylesheet" href="lost.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
@@ -15,67 +29,7 @@
 
 </head>
 <body>
-<style>
-.about {
-  padding: 60px 20px;
-  text-align: center;
-}
 
-.about-container {
-  max-width: 900px;
-  margin: 0 auto;
-}
-
-.about h2 {
-  font-size: 2.2rem;
-  color: #5C3A21;
-  margin-bottom: 20px;
-}
-
-.about .intro {
-  font-size: 1.1rem;
-  color: #444;
-  margin-bottom: 40px;
-  line-height: 1.8;
-}
-
-.about-content {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 30px;
-}
-
-.about-box {
-  flex: 1 1 350px;
-  background: #5C3A21;
-  border-radius: 12px;
-  padding: 25px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  transition: transform 0.3s ease;
-}
-
-.about-box:hover {
-  transform: translateY(-5px);
-}
-
-.about-box h3 {
-  color: #9d6e4c;
-  font-size: 1.4rem;
-  margin-bottom: 15px;
-}
-
-.about-box i {
-  color: #9d6e4c;
-  margin-right: 8px;
-}
-
-.about-box p {
-  color: white;
-  line-height: 1.7;
-}
-
-</style>
    
     <header>
         <div class="logo">
@@ -129,26 +83,39 @@
 
 
 
-    <div class="about-content">
-      <div class="about-box vision">
-        <h3><i class="fa-solid fa-eye"></i> Our Vision</h3>
-        <p>
-          To build a compassionate society where every animal is treated with kindness,
-          respect, and dignity — ensuring a safe environment for all living beings.
-        </p>
-      </div>
+<section class="animal-grid">
 
-      <div class="about-box mission">
-        <h3><i class="fa-solid fa-hand-holding-heart"></i> Our Mission</h3>
-        <p>
-          To rescue, rehabilitate, and rehome abandoned or injured animals while
-          raising awareness about animal welfare. Through adoption drives, rescue operations,
-          and community engagement, we aim to protect lives and inspire humane living.
-        </p>
-      </div>
+<?php while ($row = mysqli_fetch_assoc($result)) { ?>
+
+    <div class="animal-card">
+
+        <img src="/paws&protect/includes/uploads/lost/<?php echo $row['image']; ?>" alt="Lost Animal">
+
+        <div class="card-body">
+            <h3><?php echo $row['animal_type']; ?></h3>
+
+            <div class="meta"><strong>Breed:</strong> <?php echo $row['breed']; ?></div>
+            <div class="meta"><strong>Color:</strong> <?php echo $row['color']; ?></div>
+            <div class="meta"><strong>Lost at:</strong> <?php echo $row['lost_location']; ?></div>
+            <div class="meta"><strong>Owner:</strong> <?php echo $row['owner_name']; ?></div>
+            <div class="meta"><strong>Contact:</strong> <?php echo $row['contact_number']; ?></div>
+        </div>
+
+        <div class="card-footer">
+            <form method="post" action="rescue.php">
+                <input type="hidden" name="lost_id" value="<?php echo $row['lost_id']; ?>">
+                <button type="submit" class="details-btn">
+                     FOUND
+                </button>
+            </form>
+        </div>
+
     </div>
-  </div>
+
+<?php } ?>
+
 </section>
+
 
 
 

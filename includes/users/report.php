@@ -3,7 +3,6 @@ session_start();
 include("sidebar.php");
 include("../page/dbconnect.php");
 
-// Check login
 if (!isset($_SESSION['user_id'])) {
     echo "<p style='color:red;text-align:center;'>Unauthorized Access</p>";
     exit;
@@ -25,7 +24,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $contact_number = $_POST['contact_number'];
     $status = "notfound";
 
-    // Image upload
     $image = NULL;
     if (!empty($_FILES['image']['name'])) {
         $image = time() . "_" . basename($_FILES['image']['name']);
@@ -43,7 +41,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     }
 
     if (empty($error)) {
-        // Insert into lost_animals table
         $sql = "INSERT INTO lost_animals 
                 (user_id, animal_type, breed, color, lost_location, lost_date, owner_name, contact_number, status, image)
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -68,42 +65,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 <html>
 <head>
 <title>Report Lost Animal</title>
-<style>
-* { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',sans-serif; }
-body { background:#f4f1ed; }
+        <link rel="stylesheet" href="report.css">
 
-/* Layout */
-.main-container { margin-left:260px; padding:40px; }
-
-/* Card */
-.details-card {
-    background:#fff; border-radius:20px; box-shadow:0 8px 25px rgba(0,0,0,0.15);
-    padding:35px; max-width:900px; margin:auto;
-}
-
-.section-title {
-    font-size:22px; font-weight:600; color:#4b2e1e;
-    margin:20px 0; border-bottom:2px solid #f2d6b3; padding-bottom:5px;
-}
-
-input, select {
-    width:100%; padding:12px; margin:10px 0 20px; border-radius:12px;
-    border:1px solid #d6c2ae; font-size:15px;
-}
-
-/* Submit button */
-.submit-btn {
-    background: #5C3A21;; color:white; padding:12px 25px;
-    font-size:17px; border:none; border-radius:12px; cursor:pointer; width:100%; transition:0.3s;
-}
-.submit-btn:hover { background:#9d6e4c; transform:scale(1.03); }
-
-/* Alerts */
-.alert { padding:12px; border-radius:10px; margin-bottom:20px; font-weight:500; }
-.alert-success { background:#d4edda; color:#155724; }
-.alert-error { background:#f8d7da; color:#721c24; }
-
-</style>
 </head>
 <body>
 

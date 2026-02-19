@@ -3,16 +3,24 @@ session_start();
 include("sidebar.php"); 
 include("../page/dbconnect.php");
 
-if (!isset($_SESSION['rescue_center_id'])) {
-    echo "<p style='color:red;text-align:center;'>Unauthorized Access</p>";
-    exit;
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+if (
+    empty($_SESSION['user_id']) ||
+    empty($_SESSION['role']) ||
+    $_SESSION['role'] !== 'rescuecenter'
+) {
+    session_unset();
+    session_destroy();
+    header("Location: /paws&protect/includes/page/login.php");
+    exit();
 }
 
 $rescue_center_id = $_SESSION['rescue_center_id'];
-$successMsg = "";
-$errorMsg = "";
 
-// ✅ FORM SUBMISSION
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $name     = $_POST['name'];
@@ -26,11 +34,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $status   = $_POST['adoption_status'];
     $location = $_POST['location'];
      $details  = $_POST['details'];
-    // ✅ IMAGE UPLOAD
+  
     $image_name = NULL;
 
     if (!empty($_FILES['animal_image']['name'])) {
-        $target_dir = "../uploads/";
+        $target_dir = "../uploads/addanimal/";
 
         if (!is_dir($target_dir)) {
             mkdir($target_dir, 0777, true);
@@ -40,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $image_name = time() . "_" . basename($_FILES["animal_image"]["name"]);
         $target_file = $target_dir . $image_name;
 
-        // ✅ Validate file type
+       
         $allowed_types = ['jpg','jpeg','png','gif'];
         $file_ext = strtolower(pathinfo($image_name, PATHINFO_EXTENSION));
 
@@ -72,103 +80,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
-<!-- ✅ ADD ANIMAL FORM -->
-<style>
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #FFF8E7;
-    padding:50px;
-    margin-left:120px;
-}
 
-.container {
-    width: 100%;
-    max-width: 650px;
-    background: white;
-    margin: 50px auto;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-}
-
-h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #5C3A21;
-}
-
-form {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-}
-
-input, select {
-    padding: 10px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    font-size: 15px;
-    width: 100%;
-}
-
-.full {
-    grid-column: 1 / 3;
-}
-
-button {
-    grid-column: 1 / 3;
-    padding: 12px;
-    background: #5C3A21;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-button:hover {
-    background:#9d6e4c;
-}
-
-/* ✅ SUCCESS & ERROR MESSAGE STYLE */
-.success-msg {
-    grid-column: 1 / 3;
-    background: #d4edda;
-    color: #155724;
-    padding: 12px;
-    border-radius: 6px;
-    text-align: center;
-    font-weight: bold;
-}
-
-.error-msg {
-    grid-column: 1 / 3;
-    background: #f8d7da;
-    color: #721c24;
-    padding: 12px;
-    border-radius: 6px;
-    text-align: center;
-    font-weight: bold;
-}
-
-textarea {
-    padding: 10px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    font-size: 15px;
-    width: 100%;
-    resize: vertical;
-}
-
-</style>
-
+ <link rel="stylesheet" href="addanimal.css">
 <div class="container">
     <h2>Add New Animal</h2>
 
     <form method="POST" enctype="multipart/form-data" action="addanimal.php">
 
-        <!-- ✅ MESSAGE OUTPUT -->
+        
         <?php if (!empty($successMsg)) { ?>
             <div class="success-msg"><?php echo $successMsg; ?></div>
         <?php } ?>
@@ -207,7 +126,7 @@ textarea {
 
         <input type="text" name="vaccination" placeholder="Vaccination Details">
 
-        <input type="date" name="rescue_date" required>
+        <input type="date" name="rescue_date" placeholder="Rescue Date" required>
 
         <select name="adoption_status" class="full">
             <option value="available">Available</option>

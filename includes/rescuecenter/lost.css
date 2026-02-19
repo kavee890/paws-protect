@@ -1,0 +1,134 @@
+.main-container {
+    margin-left: 260px;
+    padding: 40px;
+   
+}
+
+.main-container h1{
+     text-align: center;
+    margin: 6px 0;
+    color: #3e2c1c;
+   
+}
+.card {
+     background: #ddbc8b;
+    border-radius: 16px;
+    padding: 20px;
+    width: 300px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    margin: 15px;
+    display: inline-block;
+    vertical-align: top;
+}
+.card:hover{
+     background: #9e6c40ff;
+    
+}
+
+.card img {
+    width: 100%;
+    height: 230px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+.card h3 {
+    text-align: center;
+    margin: 6px 0;
+    color: #3e2c1c;
+    font-size: 30px;
+}
+
+.info {
+    font-size: 15px;
+    color: #333;
+    margin-top: 8px;
+}
+
+
+
+
+.empty {
+    text-align:center;
+    color:#777;
+    font-size:20px;
+    margin-top:30px;
+}
+.card-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+@media screen and (max-width: 768px) {
+
+    .main-container {
+        margin-left: 0;
+         align-items: center;
+        padding: 15px;
+    }
+
+    .main-container h1 {
+        font-size: 22px;
+        margin-bottom: 15px;
+        text-align: center;
+    }
+
+    .card {
+        
+        width: 100%;
+        max-width: 340px;
+        padding: 14px;     
+    }
+
+    .card img {
+       width: 300px;
+       height: 300px;
+        border-radius: 12px;
+        object-fit: cover;
+        display: block;
+        margin: 0 auto;        
+    }
+
+    .card h3 {
+        font-size: 22px;
+        margin: 10px 0;
+        text-align: center;
+    }
+
+    .info {
+        font-size: 14px;
+        margin-top: 8px;
+        text-align: center;
+    }
+}
+
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+
+    .main-container {
+        margin-left:250px;
+        padding: 25px;
+    }
+
+    .main-container h1 {
+        font-size: 26px;
+        margin-bottom: 20px;
+    }
+
+    .card {
+        width: calc(50% - 30px); 
+        margin: 15px;
+    }
+
+    .card img {
+        width: 100%;
+        height: 100%;
+    }
+
+    .card h3 {
+        font-size: 26px;
+    }
+
+    .info {
+        font-size: 15px;
+    }
+}
